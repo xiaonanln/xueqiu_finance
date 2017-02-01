@@ -54,8 +54,14 @@ def parseVolume(v):
 
 	return int(float(v) * factor)
 
+def getVolume(data):
+	vk = u'成交量'
+	if vk not in data:
+		return None
+
+	return parseVolume(data[vk])
+
 if __name__ == '__main__':
 	quotes = getQuotes('SPY')
 	vol = quotes[u'成交量']
-	print 'Volume', parseVolume(vol)
-	pass
+	print 'Volume', parseVolume(vol), getVolume(quotes)
