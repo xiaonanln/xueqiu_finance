@@ -32,6 +32,15 @@ def getQuotes(symbol):
 	data = json.loads(data, encoding='utf8')
 	return data [symbol]
 
+def getStockList(symbol):
+	visitXueqiuComOnce()
+	symbol = symbol.upper()
+	url = XUEQIU_COM + '/stock/forchartk/stocklist.json?symbol=SPY&period=1minute&type=before&begin=0&end=9999999999999'
+
+	data = web_utils.get(url)
+	data = json.loads(data, encoding='utf8')
+	return data ['chartlist']
+
 def parseVolume(v):
 	return int(float(v) )
 
