@@ -32,10 +32,10 @@ def getQuotes(symbol):
 	data = json.loads(data, encoding='utf8')
 	return data [symbol]
 
-def getStockList(symbol):
+def getStockList(symbol, startTimestamp, stopTimestamp):
 	visitXueqiuComOnce()
 	symbol = symbol.upper()
-	url = XUEQIU_COM + '/stock/forchartk/stocklist.json?symbol=SPY&period=1minute&type=before&begin=0&end=9999999999999'
+	url = XUEQIU_COM + '/stock/forchartk/stocklist.json?symbol=SPY&period=1day&type=before&begin=%d&end=%d' % (int(startTimestamp * 1000), int(stopTimestamp * 1000))
 
 	data = web_utils.get(url)
 	data = json.loads(data, encoding='utf8')
@@ -59,3 +59,5 @@ if __name__ == '__main__':
 	print >>sys.stderr, 'Volume', parseVolume(vol), getVolume(quotes)
 
 	print 'QQQ', getQuotes('QQQ')
+	for it in getStockList('SPY', 0, time.time()):
+		print it
